@@ -45,9 +45,10 @@ while part1 == 0 or part2 == 0:
             if grid[r][c] == "F":
                 grid[r][c] = 0
 
-    if num_flashes - prev_num_flashes == NUM_ROWS * NUM_COLS:
+    if num_flashes - prev_num_flashes == NUM_ROWS * NUM_COLS:  # all flashed!
         part2 = step
     prev_num_flashes = num_flashes
+
     if step == 100:
         part1 = num_flashes
     step += 1
