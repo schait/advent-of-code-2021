@@ -52,12 +52,12 @@ def find_basin(current, basin):
 
 grid = get_grid()
 low_points = find_low_points(grid)
-print("Part 1:", len(low_points) + sum([x.height for x in low_points]))
 
 basin_sizes = []
 for low_point in low_points:
     basin = find_basin(low_point, [low_point])
     basin_sizes.append(len(basin))
-
 sorted_basin_sizes = sorted(basin_sizes, reverse=True)
+
+print("Part 1:", len(low_points) + sum([x.height for x in low_points]))
 print("Part 2:", sorted_basin_sizes[0] * sorted_basin_sizes[1] * sorted_basin_sizes[2])
