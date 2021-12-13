@@ -28,28 +28,19 @@ for line in lines:
 
 start_cave = caves_by_name['start']
 
-def part1(current, seen, num_paths=0):
+def both_parts(current, seen, two_smalls_ok=False, num_paths=0):
     if current.name == 'end':
         num_paths += 1
         return num_paths
     for next_cave in current.adj:
         if next_cave not in seen or not next_cave.is_small:
-            num_paths = part1(next_cave, seen + [current], num_paths)
+            num_paths = both_parts(next_cave, seen + [current], two_smalls_ok, num_paths)
+        elif two_smalls_ok and next_cave.name != 'start':
+            num_paths = both_parts(next_cave, seen + [current], False, num_paths)
     return num_paths
 
-def part2(current, seen, two_smalls=False, num_paths=0):
-    if current.name == 'end':
-        num_paths += 1
-        return num_paths
-    for next_cave in current.adj:
-        if next_cave not in seen or not next_cave.is_small:
-            num_paths = part2(next_cave, seen + [current], two_smalls, num_paths)
-        elif not two_smalls and next_cave.name != 'start':
-            num_paths = part2(next_cave, seen + [current], True, num_paths)
-    return num_paths
-
-print(part1(start_cave, []))
-print(part2(start_cave, []))
+print("Part 1:", both_parts(start_cave, []))
+print("Part 2:", both_parts(start_cave, [], True))
 
 
 
