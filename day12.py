@@ -15,7 +15,7 @@ class Cave:
 
 caves_by_name = {}
 
-file1 = open("day12.txt", "r")
+file1 = open("inputs/day12.txt", "r")
 lines = file1.read().splitlines()
 
 for line in lines:

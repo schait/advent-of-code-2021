@@ -1,13 +1,8 @@
-def get_initial_fish_dict():
-
-    file1 = open("lanternfish.txt", "r")
-    fish = [int(x) for x in file1.read().split(",")]
-    fish_dict = {x: 0 for x in range(9)}
-    for f in fish:
-        fish_dict[f] += 1
-    return fish_dict
-
-fish_dict = get_initial_fish_dict()
+file1 = open("inputs/day6.txt", "r")
+fish = [int(x) for x in file1.read().split(",")]
+fish_dict = {x: 0 for x in range(9)}
+for f in fish:
+    fish_dict[f] += 1
 
 for day in range(256):
     new_dict = {x: 0 for x in range(9)}

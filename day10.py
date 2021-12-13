@@ -1,4 +1,4 @@
-file1 = open("day10.txt", "r")
+file1 = open("inputs/day10.txt", "r")
 lines = file1.read().splitlines()
 
 matches = {'[': ']', '<': '>', '(': ')', '{': '}'}

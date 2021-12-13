@@ -1,6 +1,7 @@
+file1 = open("inputs/day5.txt", "r")
+lines = file1.read().splitlines()
+
 def get_vents(diagonals=False):
-    file1 = open("vents.txt", "r")
-    lines = file1.read().splitlines()
     vents = []
     for line in lines:
         endpoints = line.split(" -> ")

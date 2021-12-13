@@ -1,7 +1,7 @@
 def parse_input():
     points = set()
     folds = []
-    file1 = open("day13.txt", "r")
+    file1 = open("inputs/day13.txt", "r")
     lines = file1.read().splitlines()
     for line in lines:
         if line.startswith("fold along"):

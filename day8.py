@@ -1,6 +1,20 @@
 wires = ['a', 'b', 'c', 'd', 'e', 'f', 'g']
 segments = ['top', 'bottom', 'middle', 'topleft', 'topright', 'botleft', 'botright']
 
+def get_segment_entries():
+    file1 = open("inputs/day8.txt", "r")
+    segment_entries = []
+    for line in file1.readlines():
+        patterns, digits = line.split("|")
+        patterns = patterns.strip().split()
+        for i in range(len(patterns)):
+            patterns[i] = set(patterns[i])
+        digits = digits.strip().split()
+        for i in range(len(digits)):
+            digits[i] = set(digits[i])
+        segment_entries.append({"patterns": patterns, "digits": digits})
+    return segment_entries
+
 def count_wires(patterns):
     wire_counts = {w: 0 for w in wires}
     for pattern in patterns:
@@ -62,21 +76,6 @@ def solve_display(segment_entry):
     segment_map['middle'] = (four - {segment_map['botright'], segment_map['topright'], segment_map['topleft']}).pop()
     segment_map['bottom'] = (set(wires) - set(segment_map.values())).pop()
     return decode_digits(segment_entry['digits'], segment_map)
-
-
-def get_segment_entries():
-    file1 = open("day8.txt", "r")
-    segment_entries = []
-    for line in file1.readlines():
-        patterns, digits = line.split("|")
-        patterns = patterns.strip().split()
-        for i in range(len(patterns)):
-            patterns[i] = set(patterns[i])
-        digits = digits.strip().split()
-        for i in range(len(digits)):
-            digits[i] = set(digits[i])
-        segment_entries.append({"patterns": patterns, "digits": digits})
-    return segment_entries
 
 def part1(segment_entries):
     count = 0

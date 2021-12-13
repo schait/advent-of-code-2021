@@ -17,7 +17,7 @@ class GraphNode:
         return str(self.height)
 
 def get_grid():
-    file1 = open("heightmap.txt", "r")
+    file1 = open("inputs/day9.txt", "r")
     grid = []
     for line in file1.read().splitlines():
         grid.append([GraphNode(int(x)) for x in line])

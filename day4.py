@@ -25,10 +25,6 @@ class Board:
                     return
     
     def has_bingo(self):
-        # if all([self.grid[i][i].marked for i in range(5)]):
-        #     return True
-        # if all([self.grid[i][4 - i].marked for i in range(5)]):
-        #     return True
         for i in range(5):
             if all([self.grid[i][j].marked for j in range(5)]):
                 return True
@@ -43,7 +39,7 @@ class Board:
             
 
 def get_numbers_and_boards():
-    file1 = open("bingo.txt", "r")
+    file1 = open("inputs/day4.txt", "r")
     lines = file1.read().splitlines()
     numbers_drawn = [int(x) for x in lines[0].split(",")]
     boards = []

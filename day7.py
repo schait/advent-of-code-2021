@@ -1,8 +1,7 @@
 def get_positions():
-    file1 = open("crabs.txt", "r")
+    file1 = open("inputs/day7.txt", "r")
     pos = [int(x) for x in file1.read().split(",")]
     return pos
-
 
 def part1(pos):
     len_pos = len(pos)

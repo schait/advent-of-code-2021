@@ -1,4 +1,4 @@
-file1 = open("day11.txt", "r")
+file1 = open("inputs/day11.txt", "r")
 grid = []
 for line in file1.read().splitlines():
     grid.append([int(x) for x in line])
