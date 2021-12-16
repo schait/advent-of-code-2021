@@ -1,5 +1,3 @@
-from heapq import heappush, heappop
-
 file1 = open("inputs/day15.txt", "r")
 grid = []
 for line in file1.read().splitlines():
@@ -19,7 +17,17 @@ for rr in range(5 * len(grid)):
             val -= 9
         big_grid[rr].append(val)
 
-INF = float('inf')
+A_BIG_NUMBER = 99999999
+
+def minimum_cost_unvisited_point(costs, unvisited_points):
+    minimum_point = None
+    minimum_cost = A_BIG_NUMBER
+    for point in unvisited_points:
+        cost = costs[point]
+        if cost < minimum_cost:
+            minimum_point = point
+            minimum_cost = cost
+    return minimum_point
 
 def neighbors(point, num_rows, num_cols):
     r = point[0]
@@ -39,19 +47,19 @@ def find_lowest_cost_path(grid):
     visited = set()
     costs = {(0,0): 0}
     unvisited_points = set([(0, 0)])
-    unvisited_heap = [(0, (0, 0))]
     num_rows = len(grid)
     num_cols = len(grid[0])
     num_points = num_rows * num_cols
 
     while len(visited) < num_points:
-        current_distance, current = heappop(unvisited_heap)
+        current = minimum_cost_unvisited_point(costs, unvisited_points)
         current_cost = costs[current]
         visited.add(current)
+        unvisited_points.remove(current)
         for (r, c) in neighbors(current, num_rows, num_cols):
-            if current_cost + grid[r][c] < costs.get((r, c), INF):
+            if current_cost + grid[r][c] < costs.get((r, c), A_BIG_NUMBER):
                 costs[(r, c)] = current_cost + grid[r][c]
-                heappush(unvisited_heap, (costs[r, c], (r, c)))
+                unvisited_points.add((r, c))
     return costs[(num_rows-1, num_cols-1)]
 
 print("Part 1: ", find_lowest_cost_path(grid))
