@@ -39,7 +39,7 @@ def both_parts():
         min_x_velocity += 1
     for x_velocity in range(min_x_velocity, max_x + 1):
         y_velocity = -abs(min_y)
-        while y_velocity < abs(min_y):
+        while y_velocity <= abs(min_y):
             result = trace_path(x_velocity, y_velocity)
             if result >= 0:
                 num_solutions += 1
