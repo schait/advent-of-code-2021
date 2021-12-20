@@ -1,9 +1,5 @@
-input_str3 = "[[[[[4,3],4],4],[7,[[8,4],9]]],[1,1]]"
-input_str4 = "[[[0,[4,5]],[0,0]],[[[4,5],[2,6]],[9,5]]]"
-
-file1 = open("inputs/day18-2.txt", "r")
+file1 = open("inputs/day18.txt", "r")
 inputs = file1.read().splitlines()
-#print(inputs)
 
 class Pair:
 
@@ -54,7 +50,6 @@ def replace_child(parent, old, new, reverse_lookup=False):
             break
 
 def add_to_previous_number(parent, current_child, to_add):
-    #print("Add to prev: parent:", parent, "current child", current_child)
     if not parent:
         return
     if parent.children[0] == current_child:
@@ -71,7 +66,6 @@ def add_to_previous_number(parent, current_child, to_add):
     return
     
 def add_to_next_number(parent, current_child, to_add):
-    #print("Add to next: parent:", parent, "current child", current_child)
     if not parent:
         return
     if parent.children[1] == current_child:
@@ -130,23 +124,44 @@ def reduce_num(snail_num):
     while exploded or splitted:
         exploded = explode_num(snail_num)
         while exploded:
-            print(snail_num)
+            #print(snail_num)
             exploded = explode_num(snail_num)
         splitted = split_num(snail_num)
-        if splitted:
-            print(snail_num)
+    return snail_num
 
-# snail_num = parse_input(input_str3)
-# print(snail_num)
-# reduce_num(snail_num)
-# print(snail_num)
 
-addend = parse_input(inputs[0])
-for i in range(1, len(inputs)):
-    new_sum = f"[{str(addend.children)}, {inputs[i]}]"
-    print("Raw", new_sum)
-    snail_num = parse_input(new_sum)
-    reduce_num(snail_num)
-    print("Final", snail_num)
-    addend = snail_num
-            
+def add_number_strings(num_string1, num_string2):
+    raw_sum = f"[{num_string1}, {num_string2}]"
+    snail_num = parse_input(raw_sum)
+    return reduce_num(snail_num)
+
+
+def magnitude(snail_num):
+    if type(snail_num) is int:
+        return snail_num
+    return 3 * magnitude(snail_num.children[0]) + 2 * magnitude(snail_num.children[1])
+    
+def part1():
+    addend = parse_input(inputs[0])
+    snail_num = None
+    for i in range(1, len(inputs)):
+        snail_num = add_number_strings(str(addend.children), inputs[i])
+        addend = snail_num
+    print("Part 1:", magnitude(snail_num))
+
+def part2():
+    max_sum = 0
+    for i in range(len(inputs)):
+        for j in range(i, len(inputs)):
+            snail_num = add_number_strings(inputs[i], inputs[j])
+            mag = magnitude(snail_num)
+            if mag > max_sum:
+                max_sum = mag
+            snail_num = add_number_strings(inputs[j], inputs[i])
+            mag = magnitude(snail_num)
+            if mag > max_sum:
+                max_sum = mag
+    print("Part 2:", max_sum)
+
+part1()
+part2()
